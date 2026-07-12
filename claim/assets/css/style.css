@@ -1,0 +1,46 @@
+/* Google Material Symbols Configuration */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Base Body Resets */
+body {
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar Hiding Utilities (For Horizontal Carousels) */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Custom Webkit Scrollbars for Desktop Views */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #444934;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #c6f135;
+}
+
+/* Map Page Dynamic Mesh Gradient Background */
+.mesh-gradient {
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0;
+    z-index: -1;
+    background: radial-gradient(at 0% 0%, rgba(209, 232, 207, 0.4) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(237, 249, 212, 0.5) 0px, transparent 50%);
+}
