@@ -1,10 +1,11 @@
-<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 px-6 pb-6 pt-4 bg-[#1c261b] backdrop-blur-lg rounded-t-[32px] flex justify-around items-center border-t border-white/10">
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 px-6 pt-4 bg-[#1c261b] backdrop-blur-lg rounded-t-[32px] flex justify-around items-center border-t border-white/10" style="padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));">
     <?php 
     // This array defines your mobile navigation items
     $links = [
-        ['events.php', 'calendar_today', 'Events'], 
+        ['index.php', 'calendar_today', 'Events'], 
         ['map.php', 'map', 'Map'], 
         ['claim.php', 'confirmation_number', 'To Claim'], 
+        ['tickets.php', 'receipt_long', 'Tickets'], 
         ['profile.php', 'person', 'Profile']
     ];
 

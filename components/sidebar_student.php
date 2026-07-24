@@ -12,9 +12,10 @@
     <nav class="flex-1 px-4 py-8 flex flex-col gap-2">
         <?php 
         $links = [
-            ['events.php', 'event_upcoming', 'Events'], 
+            ['index.php', 'event_upcoming', 'Events'], 
             ['map.php', 'map', 'Map'], 
             ['claim.php', 'confirmation_number', 'To Claim'], 
+            ['tickets.php', 'receipt_long', 'Tickets'], 
             ['profile.php', 'person', 'Profile']
         ];
         foreach($links as $link) {

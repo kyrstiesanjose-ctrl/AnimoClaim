@@ -51,7 +51,7 @@ $events = $stmt->fetchAll();
                             <?php echo htmlspecialchars($event['category']); ?>
                         </span>
                         <!-- Updated path to assets/pictures/ -->
-                        <img src="/claim/assets/pictures/<?php echo htmlspecialchars($event['image_url']); ?>" class="w-full h-full object-cover" alt="<?php echo htmlspecialchars($event['title']); ?>" />
+                        <img src="/claim/assets/pictures/<?php echo htmlspecialchars($event['image_url']); ?>" loading="lazy" class="w-full h-full object-cover" alt="<?php echo htmlspecialchars($event['title']); ?>" />
                     </div>
                     <div class="p-5 flex-1 flex flex-col justify-between bg-[#1c261b] text-white">
                         <div>
@@ -90,7 +90,7 @@ $events = $stmt->fetchAll();
                     data-category="<?php echo htmlspecialchars($event['category']); ?>"
                 >
                     <div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 relative">
-                        <img src="/claim/assets/pictures/Event_Poster.png" class="w-full h-full object-cover" alt="" />
+                        <img src="/claim/assets/pictures/Event_Poster.png" loading="lazy" class="w-full h-full object-cover" alt="" />
                     </div>
                     <div class="flex-1 min-w-0">
                         <h3 class="text-[#1c261b] font-bold text-xs md:text-sm truncate leading-tight mb-0.5">
