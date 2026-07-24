@@ -1,3 +1,7 @@
+<?php
+require_once '../config/database.php';
+requireLogin('organizer');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -106,7 +110,7 @@
 
 <script>
 function updateOrganizerTraffic() {
-    fetch('api/get_traffic.php')
+    fetch('../api/get_traffic.php')
         .then(res => res.json())
         .then(response => {
             if (response.status === 'success' && response.data.length > 0) {

@@ -1,5 +1,6 @@
 <?php 
-require_once('../config/auth.php'); 
+require_once('../config/database.php');
+requireLogin('student');
 $current_page = 'to_claim'; 
 ?>
 <!DOCTYPE html>
