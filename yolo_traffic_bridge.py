@@ -14,8 +14,10 @@ MAX_CAPACITY = 30
 app = Flask(__name__)
 CORS(app)
 
-# Open camera (0 for webcam or DroidCam index)
-cap = cv2.VideoCapture(0)
+# Open camera - DroidCam over same WiFi
+# The app displays the "WiFi IP: 172.20.10.42:4747" on its home screen.
+DROIDCAM_URL = "http://172.20.10.1:4747/video"  # <-- update this to match what's shown in the droidcamp phone app,
+cap = cv2.VideoCapture(DROIDCAM_URL)
 
 # Crossing line coordinates for crowd counter
 line_points = [(20, 400), (1080, 400)]
