@@ -3,10 +3,10 @@
 session_start();
 
 // Database credentials for default XAMPP
-$host = '127.0.0.1';
+$host = 'localhost'; // Changed to localhost to use local sockets
 $db   = 'animo_claim';
 $user = 'root'; 
-$pass = '';     
+$pass = ''; // This must exist! Put your password here if you have one.
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
