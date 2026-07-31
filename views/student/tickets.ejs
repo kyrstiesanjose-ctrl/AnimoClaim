@@ -1,0 +1,53 @@
+<%- include('../includes/header') %>
+
+<div class="space-y-6">
+    <h2 class="text-xl font-black text-[#1c261b] tracking-tight">Active Reservations</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <% if (claims.length === 0) { %>
+            <div class="col-span-full">
+                <p class="text-gray-500 font-medium text-xs bg-white/50 p-4 rounded-2xl border border-dashed border-gray-300 text-center">
+                    You don't have any active ticket reservations.
+                </p>
+            </div>
+        <% } else { %>
+            <% claims.forEach(claim => { %>
+                <div class="bg-[#1c261b] border border-white/10 rounded-3xl overflow-hidden shadow-lg flex flex-col relative transition-all">
+                    <div class="p-6 flex-1 space-y-4">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-[#c6f135]/15 text-[#c6f135] text-[9px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">
+                                <%= claim.status || 'Confirmed Pass' %>
+                            </span>
+                            <span class="text-white/40 text-[10px] font-mono">ID: #<%= claim.id %></span>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-base font-extrabold text-white mb-1"><%= claim.title %></h3>
+                            <p class="text-white/70 text-xs flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-[14px] text-[#c6f135]">location_on</span> 
+                                <%= claim.location %>
+                            </p>
+                        </div>
+
+                        <div class="pt-3 border-t border-white/10 flex flex-col gap-1 text-xs text-white/60">
+                            <div class="flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-[14px]">schedule</span> 
+                                <span><%= claim.start_time ? new Date(claim.start_time).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: true }) : 'TBA' %></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="px-6 py-4 bg-[#0f2419] border-t border-white/10 flex items-center justify-between">
+                        <div>
+                            <p class="text-[9px] text-white/40 uppercase tracking-widest font-mono">Ticket Hash Code</p>
+                            <p class="text-xs text-[#c6f135] font-mono font-bold tracking-wider mt-0.5"><%= claim.qr_code_hash %></p>
+                        </div>
+                        <span class="material-symbols-outlined text-[#c6f135]">confirmation_number</span>
+                    </div>
+                </div>
+            <% }) %>
+        <% } %>
+    </div>
+</div>
+
+<%- include('../includes/footer') %>

@@ -1,15 +1,19 @@
 <?php
-// Start the session for authentication
-session_start();
+// config/database.php
 
-// Database credentials for default XAMPP
-$host = 'localhost'; // Changed to localhost to use local sockets
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$host = 'localhost';
 $db   = 'animo_claim';
-$user = 'root'; 
-$pass = ''; // This must exist! Put your password here if you have one.
+$user = 'root';
+$pass = ''; 
+$port = '3307';
 $charset = 'utf8mb4';
 
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+$dsn = "mysql:host=$host;port=$port;dbname=$db;charset=$charset";
+
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -17,28 +21,37 @@ $options = [
 ];
 
 try {
-    // This is the exact variable your index.php is looking for!
     $pdo = new PDO($dsn, $user, $pass, $options);
 } catch (\PDOException $e) {
-    // If the database connection fails, it will halt and show you exactly why
-    die("Database Connection Failed: " . $e->getMessage());
+    die("Database connection failed: " . $e->getMessage());
 }
 
-// Generate CSRF Token for security if it doesn't exist
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-}
+// Global authentication function
+function requireLogin($requiredRole = null) {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
-// Helper auth redirect function used across the app
-function requireLogin($role = null) {
-    if (!isset($_SESSION['user_id'])) {
+    if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         header("Location: /claim/index.php");
-        exit;
+        exit();
     }
-    if ($role && $_SESSION['role'] !== $role) {
-        $redirect = $_SESSION['role'] === 'student' ? '/claim/student/index.php' : '/claim/organizer/dashboard.php';
-        header("Location: " . $redirect);
-        exit;
+
+    if ($requiredRole) {
+        // Force lowercase to prevent "Student" vs "student" bugs
+        $currentRole = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : '';
+        $requiredRole = strtolower($requiredRole);
+        
+        // Boot Organizers/Admins out of Student views
+        if ($requiredRole === 'student' && $currentRole !== 'student') {
+            header("Location: /claim/organizer/dashboard.php");
+            exit();
+        }
+
+        // Boot Students out of Organizer views
+        if ($requiredRole === 'organizer' && $currentRole !== 'organizer' && $currentRole !== 'admin') {
+            header("Location: /claim/student/index.php");
+            exit();
+        }
     }
 }
-?>
