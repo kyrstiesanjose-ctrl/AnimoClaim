@@ -14,8 +14,9 @@ AnimoClaim is a PHP web application for managing student event claims at DLSU �
 **Organizer**
 - Create and manage events, track inventory and reservation capacity (`organizer/dashboard.php`)
 - Approve claims by scanning/entering a ticket's QR hash (`organizer/terminal.php`)
-- Live crowd monitoring dashboard fed by an overhead camera (`organizer/crowd.php`, `organizer/vision.php`)
+- Live crowd monitoring dashboard fed by an overhead camera (`organizer/vision.php`)
 - Audit logs of claim activity (`organizer/audits.php`)
+- Manage profile (`organizer/profile.php`)
 
 **Crowd monitoring bridge**
 - `yolo_traffic_bridge.py` is a standalone Python/Flask service using OpenCV + YOLOv8 (Ultralytics) to count people crossing a line via webcam, and posts headcount/density data to `api/update_traffic.php` for the organizer dashboard to poll.
@@ -31,10 +32,11 @@ AnimoClaim is a PHP web application for managing student event claims at DLSU �
 
 ```
 AnimoClaim/
-├── index.php                  # Login page
+├── index.php                    # Login page
 ├── forgot_password.php
 ├── config/
-│   ├── database.php            # DB connection, session start, requireLogin(), CSRF token
+│   ├── database.php             # DB connection, session start, requireLogin(), CSRF token
+│   ├── auth.php                 # Session/role guard (redirects unauthenticated or wrong-role users)
 │   ├── logout.php
 │   └── reset_passwords.php
 ├── includes/
@@ -42,20 +44,32 @@ AnimoClaim/
 │   └── footer.php
 ├── components/
 │   ├── sidebar_student.php
-│   └── bottom_nav_student.php
-├── student/                    # Student-facing pages
+│   ├── bottom_nav_student.php
+│   ├── sidebar_organizer.php
+│   └── bottom_nav_organizer.php
+├── student/                     # Student-facing controllers
 │   ├── index.php, event.php, event_details.php
-│   ├── claim.php, tickets.php, map.php, profile.php
-├── organizer/                   # Organizer-facing pages
-│   ├── dashboard.php, terminal.php, vision.php, crowd.php, audits.php
-├── api/                        # JSON endpoints consumed by the front end
+│   └── claim.php, tickets.php, map.php, profile.php
+├── organizer/                   # Organizer-facing controllers
+│   └── dashboard.php, terminal.php, vision.php, audits.php, profile.php
+├── views/                       # Presentation templates rendered by the controllers above
+│   ├── index_view.php
+│   ├── student/
+│   │   ├── index_view.php, event_view.php, event_details_view.php
+│   │   └── tickets_view.php, map_view.php, profile_view.php
+│   └── organizer/
+│       ├── dashboard_view.php, terminal_view.php, vision_view.php
+│       └── audits_view.php, profile_view.php
+├── api/                         # JSON endpoints consumed by the front end
 │   ├── get_claims.php, book_slot.php, approve_claim.php
 │   ├── get_traffic.php, update_traffic.php
-│   ├── get_map_logs.php, manage_strikes.php
+│   └── get_map_logs.php, manage_strikes.php
 ├── tools/
 │   └── rehash.php               # One-off utility to rehash stored passwords
 └── yolo_traffic_bridge.py       # Python crowd-counting service (optional)
 ```
+
+> Note: `student/claim.php` currently renders its markup inline rather than through a `views/student/claim_view.php` template like the other pages — worth aligning if you're standardizing the MVC split.
 
 ## Setup (XAMPP)
 
@@ -71,9 +85,10 @@ AnimoClaim/
 pip install opencv-python flask flask-cors ultralytics requests
 python yolo_traffic_bridge.py
 ```
-This runs a local video stream and posts headcount data to `api/update_traffic.php`, which `organizer/crowd.php` and `organizer/vision.php` poll and display.
+This runs a local video stream and posts headcount data to `api/update_traffic.php`, which `organizer/vision.php` polls and displays.
 
 ## Notes
 
 - Passwords are hashed with `password_hash()` / verified with `password_verify()`. Use `tools/rehash.php` if you need to rehash existing plaintext or legacy hashes in the database.
 - CSRF tokens are generated per session in `config/database.php` and expected on state-changing API calls (e.g. `book_slot.php`).
+- `config/auth.php` guards page access by session and role (student vs. organizer/admin).
