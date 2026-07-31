@@ -1,6 +1,6 @@
 # AnimoClaim
 
-AnimoClaim is a PHP web application for managing student event claims at DLSU — students reserve time slots for event giveaways/kits and pick them up using a QR-coded ticket, while organizers manage events, approve claims, and monitor crowd density in real time.
+AnimoClaim is a PHP web application for managing student event claims at DLSU : students reserve time slots for event giveaways/kits and pick them up using a QR-coded ticket, while organizers manage events, approve claims, and monitor crowd density in real time.
 
 ## Features
 
@@ -69,15 +69,14 @@ AnimoClaim/
 └── yolo_traffic_bridge.py       # Python crowd-counting service (optional)
 ```
 
-> Note: `student/claim.php` currently renders its markup inline rather than through a `views/student/claim_view.php` template like the other pages — worth aligning if you're standardizing the MVC split.
 
 ## Setup (XAMPP)
 
 1. Clone this repo directly into `htdocs/claim` — the app expects to be served at `localhost/claim/...` (see `$base_url` in `includes/header.php`).
 2. Start Apache and MySQL in XAMPP.
-3. Create a database named `animo_claim` and import your schema (tables include `events`, `event_time_slots`, `inventory`, `reservations`, and `crowd_traffic_logs`).
+3. Create a database named `animo_claim` and import  schema (tables include `events`, `event_time_slots`, `inventory`, `reservations`, and `crowd_traffic_logs`).
 4. Default DB credentials are set in `config/database.php` for local XAMPP (`root` / no password) — update if yours differ.
-5. Visit `http://localhost/claim/` to log in.
+5. Visit `http://localhost/claim/index.php` to log in.
 
 ### Optional: crowd monitoring bridge
 
