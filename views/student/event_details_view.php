@@ -57,7 +57,7 @@
                     <i data-lucide="package-check" class="w-5 h-5"></i>
                 </div>
                 <div>
-                    <p id="hero-capacity-label" class="text-[10px] font-bold uppercase tracking-widest text-gray-400 transition-colors duration-300">Available Stock</p>
+                    <p id="hero-capacity-label" class="text-[10px] font-bold uppercase tracking-widest text-gray-400 transition-colors duration-300"><?php echo $isTicketEvent ? 'Total Seats (All Sections)' : 'Available Stock'; ?></p>
                     <p id="hero-capacity-val" class="text-base font-extrabold text-[#0e0f0c] transition-colors duration-300"><?php echo $remain_qty; ?> <span id="hero-capacity-sub" class="text-xs text-gray-400 font-normal">/ <?php echo $total_qty; ?> units</span></p>
                 </div>
             </div>
@@ -112,6 +112,46 @@
             <?php echo nl2br(htmlspecialchars($event['description'])); ?>
         </p>
     </section>
+
+    <!-- Ticket Tier Picker (only for Ticket events) -->
+    <?php if ($isTicketEvent && !empty($items)): ?>
+    <section class="space-y-3">
+        <div class="flex justify-between items-center px-1">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-[#0e0f0c] flex items-center gap-1.5">
+                <i data-lucide="armchair" class="w-4 h-4 text-[#163300]"></i>
+                Select Seat Section
+            </h3>
+            <span class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">Tap to select</span>
+        </div>
+
+        <div class="grid grid-cols-1 gap-3" id="tier-container">
+            <?php foreach ($items as $tier):
+                $tierSoldOut = $tier['remaining_balance'] <= 0;
+                $tierClass = $tierSoldOut
+                    ? "bg-gray-100 border border-gray-200 text-gray-400 cursor-not-allowed opacity-60"
+                    : "bg-white border-2 border-[#0e0f0c]/12 text-[#0e0f0c] hover:border-[#9fe870] tier-btn cursor-pointer transition-all duration-200";
+            ?>
+                <button class="p-4 rounded-[20px] flex items-center justify-between gap-3 wise-btn <?php echo $tierClass; ?>"
+                        data-item-id="<?php echo $tier['item_id']; ?>"
+                        data-item-price="<?php echo htmlspecialchars($tier['price']); ?>"
+                        <?php echo ($tierSoldOut || $hasReservedEvent) ? 'disabled' : ''; ?>>
+                    <div class="text-left">
+                        <span class="tier-name-text font-extrabold text-sm block"><?php echo htmlspecialchars($tier['venue_section'] ?: $tier['description']); ?></span>
+                        <span class="text-[11px] font-bold text-gray-500"><?php echo $tierSoldOut ? 'Sold out' : $tier['remaining_balance'] . ' seats left'; ?></span>
+                    </div>
+                    <div class="flex items-center gap-2 flex-shrink-0">
+                        <span class="font-mono font-black text-sm">&#8369;<?php echo number_format((float)$tier['price'], 2); ?></span>
+                        <span class="tier-check-icon hidden w-5 h-5 rounded-full bg-[#9fe870] text-[#163300] items-center justify-center font-black flex-shrink-0 shadow-sm">
+                            <i data-lucide="check" class="w-3.5 h-3.5 stroke-[3]"></i>
+                        </span>
+                    </div>
+                </button>
+            <?php endforeach; ?>
+        </div>
+
+        <input type="hidden" id="selected_item_id" value="">
+    </section>
+    <?php endif; ?>
 
     <!-- Wise Style Time Slot Picker -->
     <section class="space-y-3">
@@ -198,6 +238,9 @@
         </div>
         
         <input type="hidden" id="selected_slot_id" name="slot_id" value="">
+        <?php if (!$isTicketEvent): ?>
+            <input type="hidden" id="selected_item_id" value="<?php echo !empty($items) ? (int) $items[0]['item_id'] : ''; ?>">
+        <?php endif; ?>
     </section>
 
     <!-- Toast Notification Container -->
@@ -221,7 +264,7 @@
         <?php else: ?>
             <button id="claim-btn" disabled class="w-full bg-gray-200 text-gray-400 py-3.5 px-6 h-14 rounded-2xl font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2.5 wise-btn disabled:opacity-50 disabled:bg-gray-200 disabled:text-gray-400 disabled:shadow-none disabled:cursor-not-allowed cursor-pointer transition-all duration-300">
                 <i data-lucide="ticket" class="w-4 h-4"></i>
-                <span id="claim-text">Select a Time Slot First</span>
+                <span id="claim-text"><?php echo $isTicketEvent ? 'Select a Section &amp; Time Slot' : 'Select a Time Slot First'; ?></span>
             </button>
         <?php endif; ?>
         <p class="text-center text-[10px] text-gray-500 font-bold mt-2.5 uppercase tracking-widest">
@@ -233,6 +276,7 @@
 <script>
     const csrfToken = "<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? ''); ?>";
     const isSuspended = <?php echo $isSuspended ? 'true' : 'false'; ?>;
+    const requiresTierSelection = <?php echo $isTicketEvent ? 'true' : 'false'; ?>;
 
     function showToast(msg) {
         const container = document.getElementById('toast-container');
@@ -254,9 +298,66 @@
         if (window.lucide) lucide.createIcons();
 
         const timeSlots = document.querySelectorAll('.time-slot-btn');
-        const hiddenInput = document.getElementById('selected_slot_id');
+        const tierButtons = document.querySelectorAll('.tier-btn');
+        const slotHiddenInput = document.getElementById('selected_slot_id');
+        const itemHiddenInput = document.getElementById('selected_item_id');
         const claimBtn = document.getElementById('claim-btn');
         const claimText = document.getElementById('claim-text');
+
+        function updateClaimButtonState() {
+            if (!claimBtn) return;
+            const hasSlot = slotHiddenInput && slotHiddenInput.value;
+            const hasItem = itemHiddenInput && itemHiddenInput.value;
+            const ready = hasSlot && (!requiresTierSelection || hasItem);
+
+            claimBtn.disabled = !ready;
+            claimBtn.classList.toggle('bg-gray-200', !ready);
+            claimBtn.classList.toggle('text-gray-400', !ready);
+            claimBtn.classList.toggle('bg-[#9fe870]', ready);
+            claimBtn.classList.toggle('text-[#163300]', ready);
+            claimBtn.classList.toggle('shadow-[0_4px_20px_rgba(159,232,112,0.5)]', ready);
+            claimBtn.classList.toggle('scale-[1.01]', ready);
+
+            if (claimText) {
+                if (ready) {
+                    claimText.innerText = "Confirm Selection";
+                } else if (requiresTierSelection && !hasItem) {
+                    claimText.innerText = "Select a Section First";
+                } else {
+                    claimText.innerText = "Select a Time Slot First";
+                }
+            }
+        }
+
+        tierButtons.forEach(tier => {
+            tier.addEventListener('click', () => {
+                if (tier.disabled) {
+                    showToast("This section is sold out or you already claimed a ticket.");
+                    return;
+                }
+
+                tierButtons.forEach(t => {
+                    if (!t.disabled) {
+                        t.classList.remove('bg-[#163300]', 'text-white', 'border-[#9fe870]', 'ring-2', 'ring-[#9fe870]');
+                        t.classList.add('bg-white', 'border-[#0e0f0c]/12', 'text-[#0e0f0c]');
+                        const nameText = t.querySelector('.tier-name-text');
+                        if (nameText) nameText.classList.remove('text-white');
+                        const checkIcon = t.querySelector('.tier-check-icon');
+                        if (checkIcon) checkIcon.classList.add('hidden');
+                    }
+                });
+
+                tier.classList.remove('bg-white', 'border-[#0e0f0c]/12', 'text-[#0e0f0c]');
+                tier.classList.add('bg-[#163300]', 'text-white', 'border-[#9fe870]', 'ring-2', 'ring-[#9fe870]');
+                const nameText = tier.querySelector('.tier-name-text');
+                if (nameText) nameText.classList.add('text-white');
+                const checkIcon = tier.querySelector('.tier-check-icon');
+                if (checkIcon) checkIcon.classList.remove('hidden');
+
+                if (itemHiddenInput) itemHiddenInput.value = tier.getAttribute('data-item-id');
+                updateClaimButtonState();
+            });
+        });
 
         timeSlots.forEach(slot => {
             slot.addEventListener('click', () => {
@@ -314,20 +415,17 @@
                     heroIcon.classList.add('bg-white/10', 'text-[#9fe870]');
                 }
                 
-                if (hiddenInput) hiddenInput.value = slot.getAttribute('data-slot-id');
-                if (claimBtn) {
-                    claimBtn.disabled = false;
-                    claimBtn.classList.remove('bg-gray-200', 'text-gray-400');
-                    claimBtn.classList.add('bg-[#9fe870]', 'text-[#163300]', 'shadow-[0_4px_20px_rgba(159,232,112,0.5)]', 'scale-[1.01]');
-                }
-                if (claimText) claimText.innerText = "Confirm Slot";
+                if (slotHiddenInput) slotHiddenInput.value = slot.getAttribute('data-slot-id');
+                updateClaimButtonState();
             });
         });
 
         if (claimBtn) {
             claimBtn.addEventListener('click', async () => {
-                const slotId = hiddenInput ? hiddenInput.value : '';
-                if(!slotId) return;
+                const slotId = slotHiddenInput ? slotHiddenInput.value : '';
+                const itemId = itemHiddenInput ? itemHiddenInput.value : '';
+                if (!slotId) return;
+                if (requiresTierSelection && !itemId) return;
 
                 if (isSuspended) {
                     showToast("Reservation Blocked: You have 3 active strikes on your DLSU account.");
@@ -335,13 +433,17 @@
                 }
 
                 claimBtn.disabled = true;
-                if (claimText) claimText.innerText = "Reserving Slot...";
+                if (claimText) claimText.innerText = "Reserving...";
 
                 try {
                     const res = await fetch('/claim/api/book_slot.php', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ time_slot_id: parseInt(slotId, 10), csrf_token: csrfToken })
+                        body: JSON.stringify({
+                            time_slot_id: parseInt(slotId, 10),
+                            item_id: itemId ? parseInt(itemId, 10) : undefined,
+                            csrf_token: csrfToken
+                        })
                     });
                     
                     const data = await res.json();
@@ -364,13 +466,11 @@
                         }, 1200);
                     } else {
                         showToast("Failed to book slot: " + data.message);
-                        claimBtn.disabled = false;
-                        if (claimText) claimText.innerText = "Confirm Slot";
+                        updateClaimButtonState();
                     }
                 } catch (err) {
                     showToast("Network error occurred. Please try again.");
-                    claimBtn.disabled = false;
-                    if (claimText) claimText.innerText = "Confirm Slot";
+                    updateClaimButtonState();
                 }
             });
         }

@@ -51,7 +51,7 @@ function sendPaymentInvoice(PDO $pdo, int $paymentId): bool {
     }
 
     if (!isDlsuEmail($ctx['email'])) {
-        // Svalid dlsu only
+        // dlsu only
         return false;
     }
 
@@ -73,11 +73,16 @@ function sendPaymentInvoice(PDO $pdo, int $paymentId): bool {
     }
     $paidFromLabel = $ctx['payment_method'] === 'gcash' ? 'GCash Number Used' : 'Bank Account Used';
 
+    // --- CLAIMER section ---
+    $rows = _emailSectionHeader('Claimer')
+          . _emailRow('Name', htmlspecialchars($claimerName))
+          . _emailRow('DLSU ID', htmlspecialchars($ctx['claimer_id']));
+
     // --- TICKET section ---
-    $rows = _emailSectionHeader('Ticket')
-          . _emailRow('Event', htmlspecialchars($ctx['event_title']))
-          . _emailRow('Event Date & Time', $eventDateLabel)
-          . _emailRow('Item', htmlspecialchars($ctx['item_description'] ?: $ctx['category']));
+    $rows .= _emailSectionHeader('Ticket')
+           . _emailRow('Event', htmlspecialchars($ctx['event_title']))
+           . _emailRow('Event Date & Time', $eventDateLabel)
+           . _emailRow('Item', htmlspecialchars($ctx['item_description'] ?: $ctx['category']));
 
     if (!empty($ctx['venue_section'])) {
         $rows .= _emailRow('Seat Section', htmlspecialchars($ctx['venue_section']));
@@ -101,11 +106,6 @@ function sendPaymentInvoice(PDO $pdo, int $paymentId): bool {
            . _emailRow('Total Amount Paid', '<span style="font-size:15px">₱' . number_format($total, 2) . '</span>')
            . _emailRow('Verified On', $verifiedAt);
 
-    // --- CLAIMER section ---
-    $rows .= _emailSectionHeader('Claimer')
-           . _emailRow('Name', htmlspecialchars($claimerName))
-           . _emailRow('DLSU ID', htmlspecialchars($ctx['claimer_id']));
-
     $subject = 'Payment Confirmed — AnimoClaim Invoice #' . $ctx['payment_id'];
     $body = _emailWrapper(
         'Payment Confirmed',
@@ -120,7 +120,9 @@ function sendPaymentInvoice(PDO $pdo, int $paymentId): bool {
 }
 
 /**
- * Notifies org organizers and admins of incoming payments. Contains buyer info and payment matching notes rather than student receipt details.
+ * Notifies every organizer/admin attached to the event's organization that
+ * a payment came in — separate content from the student's receipt, since
+ * they need buyer identity and a reconciliation note, not claim instructions.
  */
 function sendOrganizerPaymentNotice(PDO $pdo, array $ctx): void {
     $stmt = $pdo->prepare("
@@ -183,7 +185,7 @@ function sendOrganizerPaymentNotice(PDO $pdo, array $ctx): void {
     $subject = 'New Ticket Payment — ' . $ctx['event_title'] . ' (Ref #' . $ctx['reference_number'] . ')';
 
     foreach ($organizers as $org) {
-        if (!isDlsuEmail($org['email'])) continue; // same guard, never mail a non-DLSU/dummy address
+        if (!isDlsuEmail($org['email'])) continue; // dlsu only
 
         $body = _emailWrapper(
             'New Payment Received',
