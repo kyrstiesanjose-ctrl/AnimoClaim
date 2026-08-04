@@ -52,8 +52,16 @@ try {
     // Calculate percentage (preventing division by zero)
     $capacity_percent = ($total_qty > 0) ? round(($remain_qty / $total_qty) * 100) : 0;
 
-    // The 'events' table lacks a description column, so we pull it from the first item
-    $event['description'] = !empty($items) ? $items[0]['description'] : 'Join us for this exciting event!';
+    // The 'events' table lacks a description column, so we pull it from the
+    // first item — except for Ticket events with multiple seat tiers, where
+    // "the first item's description" (e.g. "General Admission Seat") would
+    // misleadingly describe the whole event instead of just one tier.
+    $isTicketEvent = !empty($items) && $items[0]['category'] === 'Ticket';
+    if ($isTicketEvent) {
+        $event['description'] = 'Choose your preferred seat section below. Ticket prices vary by section.';
+    } else {
+        $event['description'] = !empty($items) ? $items[0]['description'] : 'Join us for this exciting event!';
+    }
 
     // 3. Fetch Time Slots with the exact aliases the view expects (id, max_capacity)
     $stmt_slots = $pdo->prepare("
