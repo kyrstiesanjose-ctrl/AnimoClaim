@@ -107,7 +107,7 @@
             <div class="grid grid-cols-2 gap-3">
                 <div>
                     <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1.5 ml-1">Category</label>
-                    <select name="category" class="w-full px-4 h-12 rounded-2xl bg-gray-50 border border-gray-200 focus:border-[#0e0f0c] focus:outline-none text-xs font-bold">
+                    <select name="category" id="category-select" onchange="toggleTicketFields()" class="w-full px-4 h-12 rounded-2xl bg-gray-50 border border-gray-200 focus:border-[#0e0f0c] focus:outline-none text-xs font-bold">
                         <option value="Food">Food</option>
                         <option value="Beverage">Beverage</option>
                         <option value="Merchandise">Merchandise</option>
@@ -138,8 +138,33 @@
                 </div>
             </div>
 
+            <!-- Ticket-only fields: hidden unless Category = Ticket -->
+            <div id="ticket-fields" class="hidden space-y-2.5 bg-[#e2f6d5]/50 border border-[#9fe870]/50 rounded-2xl p-3">
+                <p class="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Ticket Tiers &amp; Ticket SLots</p>
+
+                <div class="grid grid-cols-[1fr_auto_100px] items-center gap-2">
+                    <span class="text-xs font-bold text-[#0e0f0c]">General Admission</span>
+                    <span class="text-xs font-mono font-bold text-gray-500 justify-self-end">₱100.00</span>
+                    <input type="number" name="qty_general" id="qty-general" min="0" placeholder="Slots" class="w-full px-3 h-10 rounded-xl bg-white border border-gray-200 focus:border-[#0e0f0c] focus:outline-none text-xs font-bold font-mono" />
+                </div>
+                <div class="grid grid-cols-[1fr_auto_100px] items-center gap-2">
+                    <span class="text-xs font-bold text-[#0e0f0c]">Upper Box</span>
+                    <span class="text-xs font-mono font-bold text-gray-500 justify-self-end">₱200.00</span>
+                    <input type="number" name="qty_upper" id="qty-upper" min="0" placeholder="Slots" class="w-full px-3 h-10 rounded-xl bg-white border border-gray-200 focus:border-[#0e0f0c] focus:outline-none text-xs font-bold font-mono" />
+                </div>
+                <div class="grid grid-cols-[1fr_auto_100px] items-center gap-2">
+                    <span class="text-xs font-bold text-[#0e0f0c]">Lower Box</span>
+                    <span class="text-xs font-mono font-bold text-gray-500 justify-self-end">₱300.00</span>
+                    <input type="number" name="qty_lower" id="qty-lower" min="0" placeholder="Slots" class="w-full px-3 h-10 rounded-xl bg-white border border-gray-200 focus:border-[#0e0f0c] focus:outline-none text-xs font-bold font-mono" />
+                </div>
+            </div>
+
+            <div id="capacity-ticket-note" class="hidden px-4 py-3 rounded-2xl bg-gray-50 border border-gray-200">
+                <p class="text-[10px] text-gray-500 font-semibold leading-relaxed">Pickup capacity is set automatically from your ticket counts above — any ticket holder can claim at any of the 3 time windows.</p>
+            </div>
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div>
+                <div id="target-audience-field">
                     <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1.5 ml-1">Target Audience / Beneficiaries</label>
                     <select name="target_audience" required class="w-full px-4 h-12 rounded-2xl bg-gray-50 border border-gray-200 focus:border-[#0e0f0c] focus:outline-none text-xs font-bold">
                         <option value="University wide">University Wide</option>
@@ -148,9 +173,9 @@
                         <option value="Organization Members Only">Organization Members Only</option>
                     </select>
                 </div>
-                <div>
+                <div id="capacity-field">
                     <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1.5 ml-1">Max Capacity Per Slot</label>
-                    <input type="number" name="capacity" required min="5" max="500" value="50" class="w-full px-4 h-12 rounded-2xl bg-gray-50 border border-gray-200 focus:border-[#0e0f0c] focus:outline-none text-xs font-bold font-mono" />
+                    <input type="number" name="capacity" id="capacity-input" required min="5" max="500" value="50" class="w-full px-4 h-12 rounded-2xl bg-gray-50 border border-gray-200 focus:border-[#0e0f0c] focus:outline-none text-xs font-bold font-mono" />
                 </div>
             </div>
 
@@ -178,6 +203,25 @@
         if (show) { modal.classList.remove('hidden'); } 
         else { modal.classList.add('hidden'); }
     }
+
+    function toggleTicketFields() {
+        const isTicket = document.getElementById('category-select').value === 'Ticket';
+        const wrap = document.getElementById('ticket-fields');
+        wrap.classList.toggle('hidden', !isTicket);
+        if (!isTicket) {
+            document.getElementById('qty-general').value = '';
+            document.getElementById('qty-upper').value = '';
+            document.getElementById('qty-lower').value = '';
+        }
+
+        // Capacity for ticketed events is derived directly from seat counts, eliminating duplicate capacity inputs.
+        document.getElementById('capacity-field').classList.toggle('hidden', isTicket);
+        document.getElementById('capacity-ticket-note').classList.toggle('hidden', !isTicket);
+        document.getElementById('capacity-input').required = !isTicket;
+        document.getElementById('target-audience-field').classList.toggle('md:col-span-2', isTicket);
+    }
+
+    document.addEventListener('DOMContentLoaded', toggleTicketFields);
 </script>
 
 <?php require_once '../includes/footer.php'; ?>

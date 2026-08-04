@@ -1,0 +1,264 @@
+[2026-08-04 17:10:37] To: leila_lumbao@dlsu.edu.ph | Subject: Your AnimoClaim Payment Confirmation Code | SENT
+SMTP: sent
+220 smtp.gmail.com ESMTP 41be03b00d2f7-cbe39474fa2sm5207261a12.0 - gsmtp
+> EHLO animoclaim.local
+250-smtp.gmail.com at your service, [112.209.177.27]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+> STARTTLS
+220 2.0.0 Ready to start TLS
+> EHLO animoclaim.local
+250-smtp.gmail.com at your service, [112.209.177.27]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+[credential omitted]
+334 VXNlcm5hbWU6
+> YW5pbW9jbGFpbUBnbWFpbC5jb20=
+334 UGFzc3dvcmQ6
+> Y3Nub3RldHplaWhjcWNpaQ==
+235 2.7.0 Accepted
+> MAIL FROM:<animoclaim@gmail.com>
+250 2.1.0 OK 41be03b00d2f7-cbe39474fa2sm5207261a12.0 - gsmtp
+> RCPT TO:<leila_lumbao@dlsu.edu.ph>
+250 2.1.5 OK 41be03b00d2f7-cbe39474fa2sm5207261a12.0 - gsmtp
+> DATA
+354 Go ahead 41be03b00d2f7-cbe39474fa2sm5207261a12.0 - gsmtp
+250 2.0.0 OK  1785856238 41be03b00d2f7-cbe39474fa2sm5207261a12.0 - gsmtp
+> QUIT
+
+
+--- message body ---
+<div style="font-family:Arial,Helvetica,sans-serif;max-width:520px;margin:0 auto;color:#163300"><div style="background:#0e0f0c;border-radius:20px;padding:18px 22px;margin-bottom:18px"><h1 style="color:#9fe870;margin:0;font-size:20px;letter-spacing:-0.5px">AnimoClaim</h1><p style="color:#9aa89a;margin:2px 0 0;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase">DLSU Official Giveaway Portal</p></div><p style="font-size:14px">Hi Leila,</p><p style="font-size:14px;line-height:1.5">Use the code below to confirm your ticket payment. Entering this code authorizes AnimoClaim to mark your payment as verified.</p><p style="font-size:36px;font-weight:800;letter-spacing:8px;color:#0e0f0c;background:#e2f6d5;border-radius:14px;text-align:center;padding:16px 0;margin:18px 0">972894</p><table style="border-collapse:collapse;width:100%;margin:8px 0"><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Code expires in</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">5 minutes</td></tr></table><p style="color:#6b7a63;font-size:12px;line-height:1.5">If you didn't request this, you can safely ignore this email — no payment will be confirmed without this code.</p><p style="color:#a3ada0;font-size:11px;margin-top:24px">This is an automated message from AnimoClaim. Please do not reply to this email.</p></div>
+
+=====
+
+[2026-08-04 17:11:35] To: leila_lumbao@dlsu.edu.ph | Subject: Payment Confirmed — AnimoClaim Invoice #4 | SENT
+SMTP: sent
+220 smtp.gmail.com ESMTP 41be03b00d2f7-cbe39ea968fsm5348944a12.26 - gsmtp
+> EHLO animoclaim.local
+250-smtp.gmail.com at your service, [112.209.177.27]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+> STARTTLS
+220 2.0.0 Ready to start TLS
+> EHLO animoclaim.local
+250-smtp.gmail.com at your service, [112.209.177.27]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+[credential omitted]
+334 VXNlcm5hbWU6
+> YW5pbW9jbGFpbUBnbWFpbC5jb20=
+334 UGFzc3dvcmQ6
+> Y3Nub3RldHplaWhjcWNpaQ==
+235 2.7.0 Accepted
+> MAIL FROM:<animoclaim@gmail.com>
+250 2.1.0 OK 41be03b00d2f7-cbe39ea968fsm5348944a12.26 - gsmtp
+> RCPT TO:<leila_lumbao@dlsu.edu.ph>
+250 2.1.5 OK 41be03b00d2f7-cbe39ea968fsm5348944a12.26 - gsmtp
+> DATA
+354 Go ahead 41be03b00d2f7-cbe39ea968fsm5348944a12.26 - gsmtp
+250 2.0.0 OK  1785856296 41be03b00d2f7-cbe39ea968fsm5348944a12.26 - gsmtp
+> QUIT
+
+
+--- message body ---
+<div style="font-family:Arial,Helvetica,sans-serif;max-width:520px;margin:0 auto;color:#163300"><div style="background:#0e0f0c;border-radius:20px;padding:18px 22px;margin-bottom:18px"><h1 style="color:#9fe870;margin:0;font-size:20px;letter-spacing:-0.5px">AnimoClaim</h1><p style="color:#9aa89a;margin:2px 0 0;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase">DLSU Official Giveaway Portal</p></div><h2 style="margin:0 0 10px;font-size:17px;color:#163300">Payment Confirmed ✅</h2><p style="font-size:14px;line-height:1.5">Hi Leila, we've confirmed your payment for the ticket below. Keep this email as your receipt.</p><table style="border-collapse:collapse;width:100%;margin:16px 0;border-top:1px solid #e2f6d5;border-bottom:1px solid #e2f6d5"><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Invoice / Reference #</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">GCASH-000004-1992</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Event</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">UAAP Womens Volleyball vs UP</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Item</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">General Admission Seat</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Sent From</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">09297649637</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Claim Time Slot</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">Sep 15, 2026, 01:30 PM - 02:00 PM</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Claim Location</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">Araneta Coliseum</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Quantity</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">1</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Unit Price</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">₱200.00</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Total Amount Paid</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px"><span style="font-size:15px">₱200.00</span></td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Payment Method</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">GCash</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Verified On</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">Aug 04, 2026 at 03:11 PM</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Claimer</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">Leila Lumbao (3326323742)</td></tr></table><p style="color:#6b7a63;font-size:12px;line-height:1.5">Your ticket is now marked <strong>Reserved</strong> and ready to claim. Just tap your DLSU ID at the distribution counter during your scheduled time slot — no screenshots or codes needed to claim, this email is for your records only.</p><p style="color:#a3ada0;font-size:11px;margin-top:24px">This is an automated message from AnimoClaim. Please do not reply to this email.</p></div>
+
+=====
+
+[2026-08-04 17:56:39] To: leila_lumbao@dlsu.edu.ph | Subject: Your AnimoClaim Payment Confirmation Code | SENT
+SMTP: sent
+220 smtp.gmail.com ESMTP d9443c01a7336-2d0aa4b6c66sm9816965ad.55 - gsmtp
+> EHLO animoclaim.local
+250-smtp.gmail.com at your service, [112.209.177.27]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+> STARTTLS
+220 2.0.0 Ready to start TLS
+> EHLO animoclaim.local
+250-smtp.gmail.com at your service, [112.209.177.27]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+[credential omitted]
+334 VXNlcm5hbWU6
+> YW5pbW9jbGFpbUBnbWFpbC5jb20=
+334 UGFzc3dvcmQ6
+> Y3Nub3RldHplaWhjcWNpaQ==
+235 2.7.0 Accepted
+> MAIL FROM:<animoclaim@gmail.com>
+250 2.1.0 OK d9443c01a7336-2d0aa4b6c66sm9816965ad.55 - gsmtp
+> RCPT TO:<leila_lumbao@dlsu.edu.ph>
+250 2.1.5 OK d9443c01a7336-2d0aa4b6c66sm9816965ad.55 - gsmtp
+> DATA
+354 Go ahead d9443c01a7336-2d0aa4b6c66sm9816965ad.55 - gsmtp
+250 2.0.0 OK  1785858999 d9443c01a7336-2d0aa4b6c66sm9816965ad.55 - gsmtp
+> QUIT
+
+
+--- message body ---
+<div style="font-family:Arial,Helvetica,sans-serif;max-width:520px;margin:0 auto;color:#163300"><div style="background:#0e0f0c;border-radius:20px;padding:18px 22px;margin-bottom:18px"><h1 style="color:#9fe870;margin:0;font-size:20px;letter-spacing:-0.5px">AnimoClaim</h1><p style="color:#9aa89a;margin:2px 0 0;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase">DLSU Official Giveaway Portal</p></div><p style="font-size:14px">Hi Leila,</p><p style="font-size:14px;line-height:1.5">Use the code below to confirm your ticket payment. Entering this code authorizes AnimoClaim to mark your payment as verified.</p><p style="font-size:36px;font-weight:800;letter-spacing:8px;color:#0e0f0c;background:#e2f6d5;border-radius:14px;text-align:center;padding:16px 0;margin:18px 0">707315</p><table style="border-collapse:collapse;width:100%;margin:8px 0"><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Code expires in</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">5 minutes</td></tr></table><p style="color:#6b7a63;font-size:12px;line-height:1.5">If you didn't request this, you can safely ignore this email — no payment will be confirmed without this code.</p><p style="color:#a3ada0;font-size:11px;margin-top:24px">This is an automated message from AnimoClaim. Please do not reply to this email.</p></div>
+
+=====
+
+[2026-08-04 17:57:10] To: leila_lumbao@dlsu.edu.ph | Subject: Payment Confirmed — AnimoClaim Invoice #5 | SENT
+SMTP: sent
+220 smtp.gmail.com ESMTP d9443c01a7336-2d0a9f9362esm10484175ad.12 - gsmtp
+> EHLO animoclaim.local
+250-smtp.gmail.com at your service, [112.209.177.27]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+> STARTTLS
+220 2.0.0 Ready to start TLS
+> EHLO animoclaim.local
+250-smtp.gmail.com at your service, [112.209.177.27]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+[credential omitted]
+334 VXNlcm5hbWU6
+> YW5pbW9jbGFpbUBnbWFpbC5jb20=
+334 UGFzc3dvcmQ6
+> Y3Nub3RldHplaWhjcWNpaQ==
+235 2.7.0 Accepted
+> MAIL FROM:<animoclaim@gmail.com>
+250 2.1.0 OK d9443c01a7336-2d0a9f9362esm10484175ad.12 - gsmtp
+> RCPT TO:<leila_lumbao@dlsu.edu.ph>
+250 2.1.5 OK d9443c01a7336-2d0a9f9362esm10484175ad.12 - gsmtp
+> DATA
+354 Go ahead d9443c01a7336-2d0a9f9362esm10484175ad.12 - gsmtp
+250 2.0.0 OK  1785859030 d9443c01a7336-2d0a9f9362esm10484175ad.12 - gsmtp
+> QUIT
+
+
+--- message body ---
+<div style="font-family:Arial,Helvetica,sans-serif;max-width:520px;margin:0 auto;color:#163300"><div style="background:#0e0f0c;border-radius:20px;padding:18px 22px;margin-bottom:18px"><h1 style="color:#9fe870;margin:0;font-size:20px;letter-spacing:-0.5px">AnimoClaim</h1><p style="color:#9aa89a;margin:2px 0 0;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase">DLSU Official Giveaway Portal</p></div><h2 style="margin:0 0 10px;font-size:17px;color:#163300">Payment Confirmed ✅</h2><p style="font-size:14px;line-height:1.5">Hi Leila, we've confirmed your payment for the ticket below. Keep this email as your receipt.</p><table style="border-collapse:collapse;width:100%;margin:16px 0;border-top:1px solid #e2f6d5;border-bottom:1px solid #e2f6d5"><tr><td colspan="2" style="padding:14px 0 4px;border-bottom:1px solid #e2f6d5"><span style="font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#4d8a2e">Ticket</span></td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Event</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">UAAP TIX TEST</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Item</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">DLSU VS NU</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Claim Time Slot</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">Aug 18, 2026, 11:00 AM - 12:30 PM</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Claim Location</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">Enrique Razon Sports Center</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Quantity</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">1</td></tr><tr><td colspan="2" style="padding:14px 0 4px;border-bottom:1px solid #e2f6d5"><span style="font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#4d8a2e">Payment</span></td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Invoice / Reference #</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">GCASH-000005-08A4</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Payment Method</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">GCash</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">GCash Number Used</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">09297649637</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Unit Price</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">₱0.00</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Total Amount Paid</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px"><span style="font-size:15px">₱0.00</span></td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Verified On</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">Aug 04, 2026 at 03:57 PM</td></tr><tr><td colspan="2" style="padding:14px 0 4px;border-bottom:1px solid #e2f6d5"><span style="font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#4d8a2e">Claimer</span></td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Name</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">Leila Lumbao</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">DLSU ID</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">3326323742</td></tr></table><p style="color:#6b7a63;font-size:12px;line-height:1.5">Your ticket is now marked <strong>Reserved</strong> and ready to claim. Just tap your DLSU ID at the distribution counter during your scheduled time slot — no screenshots or codes needed to claim, this email is for your records only.</p><p style="color:#a3ada0;font-size:11px;margin-top:24px">This is an automated message from AnimoClaim. Please do not reply to this email.</p></div>
+
+=====
+
+[2026-08-04 17:57:13] To: juan_delacruz@dlsu.edu.ph | Subject: New Ticket Payment — UAAP TIX TEST (Ref #GCASH-000005-08A4) | SENT
+SMTP: sent
+220 smtp.gmail.com ESMTP d9443c01a7336-2d0aa4d68easm9823895ad.68 - gsmtp
+> EHLO animoclaim.local
+250-smtp.gmail.com at your service, [112.209.177.27]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+> STARTTLS
+220 2.0.0 Ready to start TLS
+> EHLO animoclaim.local
+250-smtp.gmail.com at your service, [112.209.177.27]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+[credential omitted]
+334 VXNlcm5hbWU6
+> YW5pbW9jbGFpbUBnbWFpbC5jb20=
+334 UGFzc3dvcmQ6
+> Y3Nub3RldHplaWhjcWNpaQ==
+235 2.7.0 Accepted
+> MAIL FROM:<animoclaim@gmail.com>
+250 2.1.0 OK d9443c01a7336-2d0aa4d68easm9823895ad.68 - gsmtp
+> RCPT TO:<juan_delacruz@dlsu.edu.ph>
+250 2.1.5 OK d9443c01a7336-2d0aa4d68easm9823895ad.68 - gsmtp
+> DATA
+354 Go ahead d9443c01a7336-2d0aa4d68easm9823895ad.68 - gsmtp
+250 2.0.0 OK  1785859034 d9443c01a7336-2d0aa4d68easm9823895ad.68 - gsmtp
+> QUIT
+
+
+--- message body ---
+<div style="font-family:Arial,Helvetica,sans-serif;max-width:520px;margin:0 auto;color:#163300"><div style="background:#0e0f0c;border-radius:20px;padding:18px 22px;margin-bottom:18px"><h1 style="color:#9fe870;margin:0;font-size:20px;letter-spacing:-0.5px">AnimoClaim</h1><p style="color:#9aa89a;margin:2px 0 0;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase">DLSU Official Giveaway Portal</p></div><h2 style="margin:0 0 10px;font-size:17px;color:#163300">New Payment Received 💰</h2><p style="font-size:14px;line-height:1.5">Hi Juan, a payment just came in for one of your events.</p><table style="border-collapse:collapse;width:100%;margin:16px 0;border-top:1px solid #e2f6d5;border-bottom:1px solid #e2f6d5"><tr><td colspan="2" style="padding:14px 0 4px;border-bottom:1px solid #e2f6d5"><span style="font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#4d8a2e">Buyer</span></td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Name</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">Leila Lumbao</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">DLSU ID</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">3326323742</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Email</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">leila_lumbao@dlsu.edu.ph</td></tr><tr><td colspan="2" style="padding:14px 0 4px;border-bottom:1px solid #e2f6d5"><span style="font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#4d8a2e">Ticket</span></td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Event</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">UAAP TIX TEST</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Item</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">DLSU VS NU</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Quantity</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">1</td></tr><tr><td colspan="2" style="padding:14px 0 4px;border-bottom:1px solid #e2f6d5"><span style="font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#4d8a2e">Payment</span></td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Reference #</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">GCASH-000005-08A4</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Payment Method</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">GCash</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">GCash Number Used</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">09297649637</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Amount</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px"><span style="font-size:15px">₱0.00</span></td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Verified On</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">Aug 04, 2026 at 03:57 PM</td></tr></table><p style="color:#6b7a63;font-size:12px;line-height:1.5"><strong>Note:</strong> AnimoClaim doesn't connect to GCash or your bank directly — this payment was confirmed by the student via a one-time email code, not verified against an actual transaction. Please cross-check the reference number and account above against your real GCash/bank records before treating it as final, especially for higher-value tickets.</p><p style="color:#a3ada0;font-size:11px;margin-top:24px">This is an automated message from AnimoClaim. Please do not reply to this email.</p></div>
+
+=====
+
+[2026-08-04 17:57:17] To: kyrstie_sanjose@dlsu.edu.ph | Subject: New Ticket Payment — UAAP TIX TEST (Ref #GCASH-000005-08A4) | SENT
+SMTP: sent
+220 smtp.gmail.com ESMTP d9443c01a7336-2d0aa4d778esm10066475ad.71 - gsmtp
+> EHLO animoclaim.local
+250-smtp.gmail.com at your service, [112.209.177.27]
+250-SIZE 35882577
+250-8BITMIME
+250-STARTTLS
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+> STARTTLS
+220 2.0.0 Ready to start TLS
+> EHLO animoclaim.local
+250-smtp.gmail.com at your service, [112.209.177.27]
+250-SIZE 35882577
+250-8BITMIME
+250-AUTH LOGIN PLAIN XOAUTH2 PLAIN-CLIENTTOKEN OAUTHBEARER XOAUTH
+250-ENHANCEDSTATUSCODES
+250-PIPELINING
+250-CHUNKING
+250 SMTPUTF8
+[credential omitted]
+334 VXNlcm5hbWU6
+> YW5pbW9jbGFpbUBnbWFpbC5jb20=
+334 UGFzc3dvcmQ6
+> Y3Nub3RldHplaWhjcWNpaQ==
+235 2.7.0 Accepted
+> MAIL FROM:<animoclaim@gmail.com>
+250 2.1.0 OK d9443c01a7336-2d0aa4d778esm10066475ad.71 - gsmtp
+> RCPT TO:<kyrstie_sanjose@dlsu.edu.ph>
+250 2.1.5 OK d9443c01a7336-2d0aa4d778esm10066475ad.71 - gsmtp
+> DATA
+354 Go ahead d9443c01a7336-2d0aa4d778esm10066475ad.71 - gsmtp
+250 2.0.0 OK  1785859038 d9443c01a7336-2d0aa4d778esm10066475ad.71 - gsmtp
+> QUIT
+
+
+--- message body ---
+<div style="font-family:Arial,Helvetica,sans-serif;max-width:520px;margin:0 auto;color:#163300"><div style="background:#0e0f0c;border-radius:20px;padding:18px 22px;margin-bottom:18px"><h1 style="color:#9fe870;margin:0;font-size:20px;letter-spacing:-0.5px">AnimoClaim</h1><p style="color:#9aa89a;margin:2px 0 0;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase">DLSU Official Giveaway Portal</p></div><h2 style="margin:0 0 10px;font-size:17px;color:#163300">New Payment Received 💰</h2><p style="font-size:14px;line-height:1.5">Hi Kyrstie Joyce Ann, a payment just came in for one of your events.</p><table style="border-collapse:collapse;width:100%;margin:16px 0;border-top:1px solid #e2f6d5;border-bottom:1px solid #e2f6d5"><tr><td colspan="2" style="padding:14px 0 4px;border-bottom:1px solid #e2f6d5"><span style="font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#4d8a2e">Buyer</span></td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Name</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">Leila Lumbao</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">DLSU ID</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">3326323742</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Email</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">leila_lumbao@dlsu.edu.ph</td></tr><tr><td colspan="2" style="padding:14px 0 4px;border-bottom:1px solid #e2f6d5"><span style="font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#4d8a2e">Ticket</span></td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Event</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">UAAP TIX TEST</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Item</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">DLSU VS NU</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Quantity</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">1</td></tr><tr><td colspan="2" style="padding:14px 0 4px;border-bottom:1px solid #e2f6d5"><span style="font-size:10px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#4d8a2e">Payment</span></td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Reference #</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">GCASH-000005-08A4</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Payment Method</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">GCash</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">GCash Number Used</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">09297649637</td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Amount</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px"><span style="font-size:15px">₱0.00</span></td></tr><tr><td style="padding:5px 14px 5px 0;color:#6b7a63;white-space:nowrap;font-size:13px">Verified On</td><td style="padding:5px 0;font-weight:700;color:#163300;font-size:13px">Aug 04, 2026 at 03:57 PM</td></tr></table><p style="color:#6b7a63;font-size:12px;line-height:1.5"><strong>Note:</strong> AnimoClaim doesn't connect to GCash or your bank directly — this payment was confirmed by the student via a one-time email code, not verified against an actual transaction. Please cross-check the reference number and account above against your real GCash/bank records before treating it as final, especially for higher-value tickets.</p><p style="color:#a3ada0;font-size:11px;margin-top:24px">This is an automated message from AnimoClaim. Please do not reply to this email.</p></div>
+
+=====
+

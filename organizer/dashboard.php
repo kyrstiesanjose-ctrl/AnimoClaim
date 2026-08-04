@@ -13,8 +13,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_campaign'])) {
     $target_audience = trim($_POST['target_audience']); // Captures beneficiary scope dynamically
     $capacity = (int)$_POST['capacity'];
     $description = trim($_POST['description']);
-    $claimer_id = $_SESSION['user_id']; 
+    $claimer_id = $_SESSION['user_id'];
 
+    // Ticket events sell three fixed-price seat tiers at once (per the
+    // university-wide standard: GA ₱100 / Upper Box ₱200 / Lower Box ₱300),
+    // not one organizer-chosen price. Every other category stays a single
+    // free item, same as before.
+    $TICKET_TIER_PRICES = [
+        'General Admission' => 100.00,
+        'Upper Box'         => 200.00,
+        'Lower Box'         => 300.00,
+    ];
+    $ticketTiers = []; // [ ['section' => ..., 'price' => ..., 'qty' => ...], ... ]
+    if ($category === 'Ticket') {
+        $qtyGeneral = max(0, (int) ($_POST['qty_general'] ?? 0));
+        $qtyUpper   = max(0, (int) ($_POST['qty_upper'] ?? 0));
+        $qtyLower   = max(0, (int) ($_POST['qty_lower'] ?? 0));
+
+        if ($qtyGeneral > 0) $ticketTiers[] = ['section' => 'General Admission', 'price' => $TICKET_TIER_PRICES['General Admission'], 'qty' => $qtyGeneral];
+        if ($qtyUpper > 0)   $ticketTiers[] = ['section' => 'Upper Box',         'price' => $TICKET_TIER_PRICES['Upper Box'],         'qty' => $qtyUpper];
+        if ($qtyLower > 0)   $ticketTiers[] = ['section' => 'Lower Box',         'price' => $TICKET_TIER_PRICES['Lower Box'],         'qty' => $qtyLower];
+
+        if (empty($ticketTiers)) {
+            $error_msg = "Please set at least one ticket tier's seat count above 0.";
+        } else {
+            // Pickup capacity per slot is derived from total seats sold, not a
+            // separate manually-entered number — any ticket holder can claim
+            // at any of the 3 pickup windows, so each window just needs to be
+            // able to hold everyone.
+            $capacity = array_sum(array_column($ticketTiers, 'qty'));
+        }
+    }
+
+    if (empty($error_msg)) {
     try {
         $pdo->beginTransaction();
 
@@ -59,13 +90,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_campaign'])) {
         $stmt->execute([$org_id, $title, $formatted_date, $location, $target_audience, $image_url]);
         $newEventId = $pdo->lastInsertId();
 
-        // 4. Insert into items
-        $total_inv = $capacity * 3;
-        $invStmt = $pdo->prepare("
-            INSERT INTO items (event_id, category, description, price, total_inventory, remaining_balance, max_claim_quantity) 
-            VALUES (?, ?, ?, 0.00, ?, ?, 1)
-        ");
-        $invStmt->execute([$newEventId, $category, $description, $total_inv, $total_inv]);
+        // 4. Insert into items.
+        //    Ticket events get one row per seat tier (fixed prices, tier-specific
+        //    inventory). Every other category keeps the original single free item.
+        if ($category === 'Ticket') {
+            $tierStmt = $pdo->prepare("
+                INSERT INTO items (event_id, category, description, price, venue_section, total_inventory, remaining_balance, max_claim_quantity) 
+                VALUES (?, 'Ticket', ?, ?, ?, ?, ?, 2)
+            ");
+            foreach ($ticketTiers as $tier) {
+                $tierDescription = $tier['section'] . ' Seat';
+                $tierStmt->execute([$newEventId, $tierDescription, $tier['price'], $tier['section'], $tier['qty'], $tier['qty']]);
+            }
+        } else {
+            $total_inv = $capacity * 3;
+            $invStmt = $pdo->prepare("
+                INSERT INTO items (event_id, category, description, price, venue_section, total_inventory, remaining_balance, max_claim_quantity) 
+                VALUES (?, ?, ?, 0.00, NULL, ?, ?, 1)
+            ");
+            $invStmt->execute([$newEventId, $category, $description, $total_inv, $total_inv]);
+        }
 
         // 5. Insert into time_slots
         $slots = [
@@ -88,6 +132,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_campaign'])) {
         $pdo->rollBack();
         $error_msg = "Error creating campaign: " . $e->getMessage();
     }
+    } // end if (empty($error_msg))
 }
 
 // Stats Queries

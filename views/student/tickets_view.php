@@ -54,6 +54,39 @@
         </button>
     </div>
 
+    <!-- Pending Payment (paid tickets like UAAP that still need payment confirmed) -->
+    <?php if (!empty($pendingPayments)): ?>
+    <div class="claim-section space-y-3">
+        <div class="flex justify-between items-center px-1">
+            <h3 class="text-xs font-extrabold text-[#b45309] uppercase tracking-widest">
+                Pending Payment
+            </h3>
+            <span class="text-[10px] text-[#b45309]/70 font-bold"><?php echo count($pendingPayments); ?> Awaiting</span>
+        </div>
+
+        <?php foreach ($pendingPayments as $pp): ?>
+            <div class="bg-[#fff7ed] rounded-[28px] p-5 border border-[#fdba74] flex items-center justify-between gap-3">
+                <div class="space-y-1.5 pr-2 min-w-0">
+                    <h4 class="font-extrabold text-base text-[#0e0f0c] leading-tight truncate">
+                        <?php echo htmlspecialchars($pp['title']); ?>
+                    </h4>
+                    <p class="text-xs text-gray-500 font-semibold flex items-center gap-1.5">
+                        <i data-lucide="map-pin" class="w-3.5 h-3.5 text-gray-400"></i>
+                        <span class="truncate"><?php echo htmlspecialchars($pp['location']); ?></span>
+                    </p>
+                    <p class="text-xs font-bold text-[#b45309]">
+                        ₱<?php echo number_format(((float)$pp['price']) * ((int)$pp['quantity']), 2); ?> due
+                    </p>
+                </div>
+                <a href="checkout.php?reservation_id=<?php echo (int)$pp['reservation_id']; ?>"
+                   class="flex-shrink-0 h-11 px-5 bg-[#0e0f0c] text-[#9fe870] rounded-full text-[11px] font-black uppercase tracking-wider flex items-center gap-1.5 wise-btn">
+                    Pay Now <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                </a>
+            </div>
+        <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
+
     <!-- Section 1: READY TO CLAIM -->
     <div id="section-ready" class="claim-section space-y-3">
         <div class="flex justify-between items-center px-1">

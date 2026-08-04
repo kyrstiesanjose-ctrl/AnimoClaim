@@ -22,6 +22,7 @@ try {
             e.event_date,
             e.distribution_location AS location,
             e.target_audience,
+            e.image_url,
             o.org_name
         FROM events e
         LEFT JOIN organizations o ON e.org_id = o.org_id
@@ -87,6 +88,15 @@ try {
     }
     
     $hasReservedEvent = (count($userReservedSlots) > 0);
+
+    // 5. Suspension check (the view's <script> block reads $isSuspended —
+    //    leaving it undefined throws a warning that gets printed straight
+    //    into the inline <script>, breaking its JS syntax entirely, which
+    //    is why clicks stop doing anything anywhere on the page)
+    $stmt_claimer = $pdo->prepare("SELECT status, strikes FROM claimers WHERE claimer_id = ? LIMIT 1");
+    $stmt_claimer->execute([$claimer_id]);
+    $claimer = $stmt_claimer->fetch();
+    $isSuspended = $claimer && ($claimer['status'] === 'Suspended' || (int)$claimer['strikes'] >= 3);
 
 } catch (\PDOException $e) {
     die("Database query failed: " . $e->getMessage());
