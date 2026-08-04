@@ -8,6 +8,12 @@
         </div>
     <?php endif; ?>
 
+    <?php if (isset($error_msg)): ?>
+        <div class="bg-[#fde2e2] border border-[#f08a8a] text-[#5c0f0f] px-5 py-3.5 rounded-2xl flex items-center gap-2.5 font-bold text-xs shadow-sm">
+            <i data-lucide="alert-triangle" class="w-5 h-5 text-[#5c0f0f]"></i> <?php echo htmlspecialchars($error_msg); ?>
+        </div>
+    <?php endif; ?>
+
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="bg-white p-5 rounded-[28px] border border-[#0e0f0c]/12 shadow-sm flex flex-col justify-between">
             <span class="text-[10px] text-gray-400 font-black uppercase tracking-wider">Active Campaigns</span>
@@ -69,9 +75,19 @@
                 </div>
                 <div class="bg-gray-50 px-6 py-4 border-t border-gray-100 flex justify-between items-center">
                     <span class="text-[11px] text-gray-500 font-mono font-bold"><?php echo $event['slot_count']; ?> claiming windows</span>
-                    <a href="/claim/organizer/terminal.php?event_id=<?php echo $event['id']; ?>" class="px-4 py-2 bg-[#0e0f0c] text-[#9fe870] hover:bg-black text-[10px] font-black uppercase tracking-wider rounded-full transition-all cursor-pointer shadow-sm wise-btn">
-                        Scan Claims
-                    </a>
+                    
+                    <div class="flex items-center gap-2">
+                        <form action="delete_event.php" method="POST" onsubmit="return confirm('Are you sure you want to cancel/delete this event?');">
+                            <input type="hidden" name="event_id" value="<?php echo $event['id']; ?>">
+                            <button type="submit" class="px-3 py-2 bg-red-50 text-red-600 hover:bg-red-100 text-[10px] font-black uppercase tracking-wider rounded-full transition-all cursor-pointer border border-red-200">
+                                Delete
+                            </button>
+                        </form>
+
+                        <a href="/claim/organizer/terminal.php?event_id=<?php echo $event['id']; ?>" class="px-4 py-2 bg-[#0e0f0c] text-[#9fe870] hover:bg-black text-[10px] font-black uppercase tracking-wider rounded-full transition-all cursor-pointer shadow-sm wise-btn">
+                            Scan Claims
+                        </a>
+                    </div>
                 </div>
             </div>
         <?php endforeach; ?>
@@ -89,7 +105,9 @@
                 <i data-lucide="x" class="w-4 h-4 text-gray-500"></i>
             </button>
         </div>
-        <form method="POST" enctype="multipart/form-data" class="space-y-3.5">
+        
+        <!-- Updated action to point to create_event.php -->
+        <form action="create_event.php" method="POST" enctype="multipart/form-data" class="space-y-3.5">
             <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <input type="hidden" name="create_campaign" value="1">
             
@@ -140,7 +158,7 @@
 
             <!-- Ticket-only fields: hidden unless Category = Ticket -->
             <div id="ticket-fields" class="hidden space-y-2.5 bg-[#e2f6d5]/50 border border-[#9fe870]/50 rounded-2xl p-3">
-                <p class="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Ticket Tiers &amp; Ticket SLots</p>
+                <p class="text-[10px] font-black uppercase tracking-widest text-gray-500 ml-1">Ticket Tiers &amp; Ticket Slots</p>
 
                 <div class="grid grid-cols-[1fr_auto_100px] items-center gap-2">
                     <span class="text-xs font-bold text-[#0e0f0c]">General Admission</span>
@@ -214,7 +232,6 @@
             document.getElementById('qty-lower').value = '';
         }
 
-        // Capacity for ticketed events is derived directly from seat counts, eliminating duplicate capacity inputs.
         document.getElementById('capacity-field').classList.toggle('hidden', isTicket);
         document.getElementById('capacity-ticket-note').classList.toggle('hidden', !isTicket);
         document.getElementById('capacity-input').required = !isTicket;
