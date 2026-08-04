@@ -57,7 +57,7 @@
                     <h1 class="text-2xl sm:text-5xl font-black text-[#163300] tracking-tight leading-none">Animo<span class="text-[#4cae15]">Claim</span></h1>
                 </div>
                 <p class="text-xs sm:text-base text-gray-700 leading-snug sm:leading-relaxed font-semibold max-w-xl">
-                    The official DLSU rewards and ticket distribution app. Claim student giveaways, events, and UAAP tickets just by scanning DLSU ID.
+                    DLSU rewards and ticket distribution app. Claim student giveaways, events, and UAAP tickets just by scanning DLSU ID.
                 </p>
             </div>
 

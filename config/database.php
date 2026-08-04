@@ -5,11 +5,11 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-$host = 'localhost';
-$db   = 'animo_claim';
-$user = 'root';
-$pass = ''; 
-$port = '3307';
+$host = 'ccscloud.dlsu.edu.ph';
+$db   = 'animo_claim_db'; 
+$user = 'CBDBADM01';
+$pass = 'y9pSAee2MURj'; 
+$port = '22003';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;port=$port;dbname=$db;charset=$charset";
@@ -38,20 +38,18 @@ function requireLogin($requiredRole = null) {
     }
 
     if ($requiredRole) {
-        // Force lowercase to prevent "Student" vs "student" bugs
         $currentRole = isset($_SESSION['role']) ? strtolower($_SESSION['role']) : '';
         $requiredRole = strtolower($requiredRole);
         
-        // Boot Organizers/Admins out of Student views
         if ($requiredRole === 'student' && $currentRole !== 'student') {
             header("Location: /claim/organizer/dashboard.php");
             exit();
         }
 
-        // Boot Students out of Organizer views
         if ($requiredRole === 'organizer' && $currentRole !== 'organizer' && $currentRole !== 'admin') {
             header("Location: /claim/student/index.php");
             exit();
         }
     }
 }
+?>

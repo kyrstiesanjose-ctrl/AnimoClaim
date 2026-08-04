@@ -30,22 +30,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (empty($login_id) || empty($password)) {
         $error = "Please enter both your ID/Email and Password.";
     } else {
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE dlsu_id = ? OR email = ? LIMIT 1");
+        // Updated to use claimer_id instead of dlsu_id
+        $stmt = $pdo->prepare("
+            SELECT c.*, o.role_level 
+            FROM claimers c 
+            LEFT JOIN organizers o ON c.claimer_id = o.claimer_id 
+            WHERE c.claimer_id = ? OR c.email = ? 
+            LIMIT 1
+        ");
         $stmt->execute([$login_id, $login_id]);
         $user = $stmt->fetch();
 
         if ($user && password_verify($password, $user['password'])) {
+            $role = 'student';
+            if (!empty($user['role_level'])) {
+                $role = (strtolower($user['role_level']) === 'administrator') ? 'admin' : 'organizer';
+            }
+
             $_SESSION['logged_in'] = true;
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['role'] = $user['role'];
+            $_SESSION['user_id'] = $user['claimer_id'];
+            $_SESSION['role'] = $role;
             $_SESSION['user'] = [
                 'first_name' => $user['first_name'],
                 'last_name' => $user['last_name'],
-                'dlsu_id' => $user['dlsu_id'],
-                'role' => $user['role']
+                'claimer_id' => $user['claimer_id'],
+                'role' => $role
             ];
 
-            if ($user['role'] === 'organizer' || $user['role'] === 'admin') {
+            if ($role === 'organizer' || $role === 'admin') {
                 header("Location: organizer/dashboard.php");
             } else {
                 header("Location: student/index.php");
