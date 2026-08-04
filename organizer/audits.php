@@ -2,21 +2,35 @@
 require_once '../config/database.php';
 requireLogin('organizer');
 
+// 1. Fetch Reservations Log (Added r.reservation_id AS id)
 $logStmt = $pdo->query("
-    SELECT r.*, u.first_name, u.last_name, u.dlsu_id, e.title, t.start_time
+    SELECT 
+        r.*, 
+        r.reservation_id AS id,
+        c.first_name, 
+        c.last_name, 
+        c.claimer_id AS dlsu_id, 
+        c.claimer_id AS user_id,
+        e.event_title AS title, 
+        ts.start_time
     FROM reservations r
-    JOIN users u ON r.user_id = u.id
-    JOIN event_time_slots t ON r.time_slot_id = t.id
-    JOIN events e ON t.event_id = e.id
-    ORDER BY r.created_at DESC
+    JOIN claimers c ON r.claimer_id = c.claimer_id
+    JOIN time_slots ts ON r.slot_id = ts.slot_id
+    JOIN events e ON ts.event_id = e.event_id
+    ORDER BY r.reservation_id DESC
 ");
 $reservations = $logStmt->fetchAll();
 
+// 2. Fetch Students and Claimers List
 $studentStmt = $pdo->query("
-    SELECT u.*, (SELECT COUNT(*) FROM strike_logs s WHERE s.user_id = u.id) as strikes 
-    FROM users u 
-    WHERE role = 'student' 
-    ORDER BY u.first_name ASC
+    SELECT 
+        c.*, 
+        c.claimer_id AS id, 
+        c.claimer_id AS dlsu_id
+    FROM claimers c 
+    LEFT JOIN organizers o ON c.claimer_id = o.claimer_id
+    WHERE o.organizer_id IS NULL
+    ORDER BY c.first_name ASC
 ");
 $students = $studentStmt->fetchAll();
 

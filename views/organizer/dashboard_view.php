@@ -25,7 +25,7 @@
             <span class="text-[10px] text-emerald-700 font-bold mt-1">100% Verified onsite</span>
         </div>
         <div class="bg-white p-5 rounded-[28px] border border-[#0e0f0c]/12 shadow-sm flex flex-col justify-between">
-            <span class="text-[10px] text-gray-400 font-black uppercase tracking-wider">No-Show Rate</span>
+            <span class="text-[10px] text-gray-400 font-black uppercase tracking-wider">No Show Rate</span>
             <span class="text-3xl font-black text-red-500 font-mono mt-2"><?php echo $noShowRate; ?>%</span>
             <span class="text-[10px] text-red-500 font-bold mt-1">Strike policy active</span>
         </div>
@@ -49,7 +49,7 @@
                 <div class="p-6">
                     <div class="flex justify-between items-start mb-3">
                         <span class="bg-[#e2f6d5] text-[#163300] text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full border border-[#9fe870]/40 font-mono">
-                            <?php echo htmlspecialchars($event['category']); ?>
+                            <?php echo htmlspecialchars($event['category'] ?? 'General'); ?>
                         </span>
                         <span class="text-[10px] font-mono text-gray-400 font-bold">Event ID: #<?php echo $event['id']; ?></span>
                     </div>
@@ -81,44 +81,89 @@
 <div id="createModal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div class="bg-white rounded-[32px] w-full max-w-lg shadow-2xl border border-[#0e0f0c]/12 p-7 space-y-4 text-[#0e0f0c]">
         <div class="flex justify-between items-center">
-            <h3 class="text-base font-black uppercase tracking-wider wise-heading flex items-center gap-2">
-                <i data-lucide="sparkles" class="w-5 h-5 text-[#163300]"></i> Launch New Campaign
-            </h3>
+
+        <h3 class="text-base font-black uppercase tracking-wider wise-heading">
+            Launch New Campaign
+        </h3>
             <button onclick="toggleModal(false)" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors cursor-pointer">
                 <i data-lucide="x" class="w-4 h-4 text-gray-500"></i>
             </button>
         </div>
-        <form method="POST" class="space-y-3.5">
+        <form method="POST" enctype="multipart/form-data" class="space-y-3.5">
             <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
             <input type="hidden" name="create_campaign" value="1">
             
-            <div>
-                <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1.5 ml-1">Campaign Title</label>
-                <input type="text" name="title" required placeholder="e.g., Blood Drive Snack Package" class="w-full px-4 h-12 rounded-2xl bg-gray-50 border border-gray-200 focus:border-[#0e0f0c] focus:outline-none text-xs font-bold" />
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1.5 ml-1">Campaign Title</label>
+                    <input type="text" name="title" required placeholder="e.g., Blood Drive Snack Package" class="w-full px-4 h-12 rounded-2xl bg-gray-50 border border-gray-200 focus:border-[#0e0f0c] focus:outline-none text-xs font-bold" />
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1.5 ml-1">Event Poster (Required)</label>
+                    <input type="file" name="event_image" required accept="image/png, image/jpeg, image/webp" class="w-full px-4 py-2.5 h-12 rounded-2xl bg-gray-50 border border-gray-200 focus:border-[#0e0f0c] focus:outline-none text-xs font-bold file:mr-4 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-[10px] file:font-black file:uppercase file:tracking-wider file:bg-[#0e0f0c] file:text-[#9fe870] hover:file:bg-black cursor-pointer" />
+                </div>
             </div>
+            
             <div class="grid grid-cols-2 gap-3">
                 <div>
                     <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1.5 ml-1">Category</label>
                     <select name="category" class="w-full px-4 h-12 rounded-2xl bg-gray-50 border border-gray-200 focus:border-[#0e0f0c] focus:outline-none text-xs font-bold">
-                        <option value="Giveaway">Giveaway</option>
-                        <option value="Wellness">Wellness</option>
-                        <option value="Assembly">Assembly</option>
-                        <option value="Academic">Academic</option>
+                        <option value="Food">Food</option>
+                        <option value="Beverage">Beverage</option>
+                        <option value="Merchandise">Merchandise</option>
+                        <option value="Academic Kit">Academic Kit</option>
+                        <option value="Ticket">Ticket</option>
+                        <option value="Others">Others</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1.5 ml-1">Fulfillment Spot</label>
-                    <input type="text" name="location" required placeholder="e.g., Gokongwei Hall" class="w-full px-4 h-12 rounded-2xl bg-gray-50 border border-gray-200 focus:border-[#0e0f0c] focus:outline-none text-xs font-bold" />
+                    <select name="location" required class="w-full px-4 h-12 rounded-2xl bg-gray-50 border border-gray-200 focus:border-[#0e0f0c] focus:outline-none text-xs font-bold">
+                        <option value="" disabled selected>Select DLSU Campus & Venue</option>
+                        <optgroup label="Laguna Campus">
+                            <option value="Richard L. Lee Engineering Block">Richard L. Lee Engineering Block</option>
+                            <option value="Dr. George S.K. Ty Bldg">Dr. George S.K. Ty Bldg</option>
+                            <option value="Enrique K. Razon Jr. Hall">Enrique K. Razon Jr. Hall</option>
+                            <option value="John L. Gokongwei Jr. Innovation Center">John L. Gokongwei Jr. Innovation Center</option>
+                            <option value="Milagros R. Del Rosario Bldg">Milagros R. Del Rosario Bldg</option>
+                        </optgroup>
+                        <optgroup label="Manila Campus">
+                            <option value="St. La Salle Hall">St. La Salle Hall</option>
+                            <option value="Henry Sy Sr. Hall">Henry Sy Sr. Hall</option>
+                            <option value="Enrique Razon Sports Center">Enrique Razon Sports Center</option>
+                            <option value="Velasco Hall">Velasco Hall</option>
+                            <option value="Gokongwei Hall">Gokongwei Hall</option>
+                        </optgroup>
+                    </select>
                 </div>
             </div>
-            <div>
-                <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1.5 ml-1">Max Capacity Per Slot</label>
-                <input type="number" name="capacity" required min="5" max="500" value="50" class="w-full px-4 h-12 rounded-2xl bg-gray-50 border border-gray-200 focus:border-[#0e0f0c] focus:outline-none text-xs font-bold font-mono" />
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1.5 ml-1">Target Audience / Beneficiaries</label>
+                    <select name="target_audience" required class="w-full px-4 h-12 rounded-2xl bg-gray-50 border border-gray-200 focus:border-[#0e0f0c] focus:outline-none text-xs font-bold">
+                        <option value="University wide">University Wide</option>
+                        <option value="College Specific">College Specific</option>
+                        <option value="Faculty Specific">Faculty Specific</option>
+                        <option value="Organization Members Only">Organization Members Only</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1.5 ml-1">Max Capacity Per Slot</label>
+                    <input type="number" name="capacity" required min="5" max="500" value="50" class="w-full px-4 h-12 rounded-2xl bg-gray-50 border border-gray-200 focus:border-[#0e0f0c] focus:outline-none text-xs font-bold font-mono" />
+                </div>
             </div>
+
+            <div>
+                <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1.5 ml-1">Event Date & Time</label>
+                <input type="datetime-local" name="event_date" required class="w-full px-4 h-12 rounded-2xl bg-gray-50 border border-gray-200 focus:border-[#0e0f0c] focus:outline-none text-xs font-bold font-mono" />
+            </div>
+
             <div>
                 <label class="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1.5 ml-1">Campaign Description</label>
                 <textarea name="description" rows="3" placeholder="Specify distribution mechanics and items included..." class="w-full p-4 rounded-2xl bg-gray-50 border border-gray-200 focus:border-[#0e0f0c] focus:outline-none text-xs font-medium"></textarea>
             </div>
+            
             <div class="pt-3 flex gap-3">
                 <button type="button" onclick="toggleModal(false)" class="flex-1 h-12 bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-black uppercase tracking-wider rounded-full transition-all cursor-pointer">Cancel</button>
                 <button type="submit" class="flex-1 h-12 bg-[#0e0f0c] text-[#9fe870] hover:bg-black text-xs font-black uppercase tracking-wider rounded-full transition-all shadow-md cursor-pointer wise-btn">Launch Event</button>
