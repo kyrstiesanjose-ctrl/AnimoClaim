@@ -6,20 +6,20 @@ $user_id = $_SESSION['user_id'];
 
 // Get User Profile & Strike Count
 $stmt = $pdo->prepare("
-    SELECT u.*, (SELECT COUNT(*) FROM strike_logs WHERE user_id = u.id) as total_strikes 
-    FROM users u WHERE u.id = ?
+    SELECT c.*, (SELECT COUNT(*) FROM strike_logs WHERE claimer_id = c.claimer_id) as total_strikes 
+    FROM claimers c WHERE c.claimer_id = ?
 ");
 $stmt->execute([$user_id]);
 $currentUser = $stmt->fetch();
 
-// Get ALL reservations[cite: 25]
+// Get ALL reservations
 $resStmt = $pdo->prepare("
-    SELECT r.*, e.title, e.location, t.start_time 
+    SELECT r.*, e.event_title AS title, e.distribution_location AS location, t.start_time 
     FROM reservations r 
-    JOIN event_time_slots t ON r.time_slot_id = t.id 
-    JOIN events e ON t.event_id = e.id 
-    WHERE r.user_id = ?
-    ORDER BY r.created_at DESC
+    JOIN time_slots t ON r.slot_id = t.slot_id 
+    JOIN events e ON t.event_id = e.event_id 
+    WHERE r.claimer_id = ?
+    ORDER BY r.reservation_id DESC
 ");
 $resStmt->execute([$user_id]);
 $allReservations = $resStmt->fetchAll();
@@ -30,6 +30,5 @@ $strikesCount = (int)$currentUser['total_strikes'];
 
 $currentPage = 'profile';
 
-// Load the view
 require_once '../views/student/profile_view.php';
 ?>

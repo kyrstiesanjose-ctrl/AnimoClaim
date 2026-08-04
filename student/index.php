@@ -4,10 +4,20 @@
 require_once '../config/database.php';
 requireLogin('student');
 
-// Fetch events and items using the correct column name (remaining_balance)
 try {
     $stmt = $pdo->query("
-        SELECT e.*, i.*, i.remaining_balance AS remaining_quantity 
+        SELECT 
+            e.event_id AS id,
+            e.event_title AS title,
+            e.distribution_location AS location,
+            e.event_date AS first_slot_time,
+            i.item_id,
+            i.category,
+            i.description,
+            i.price,
+            i.total_inventory,
+            i.remaining_balance AS remaining_qty,
+            NULL AS image_url
         FROM events e 
         LEFT JOIN items i ON e.event_id = i.event_id 
         ORDER BY e.event_date ASC
@@ -17,6 +27,5 @@ try {
     die("Query failed: " . $e->getMessage());
 }
 
-// Load the student view template
 require_once '../views/student/index_view.php';
 ?>

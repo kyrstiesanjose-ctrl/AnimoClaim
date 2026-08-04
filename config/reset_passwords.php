@@ -1,15 +1,10 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "animo_claim"); // match your db config exactly
+require_once __DIR__ . '/database.php';
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// Give everyone the same test password for now — change later
 $plainPassword = "password123";
 $hashed = password_hash($plainPassword, PASSWORD_DEFAULT);
 
-$conn->query("UPDATE users SET password = '$hashed'");
+$pdo->prepare("UPDATE claimers SET password = ?")->execute([$hashed]);
 
 echo "All passwords reset to: $plainPassword (hashed in DB)";
-$conn->close();
+?>

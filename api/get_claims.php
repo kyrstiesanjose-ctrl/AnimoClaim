@@ -7,15 +7,14 @@ $user_id = $_SESSION['user_id'];
 
 $stmt = $pdo->prepare("
     SELECT
-        e.title,
-        e.location,
-        e.image_url,
+        e.event_title AS title,
+        e.distribution_location AS location,
         t.start_time,
-        r.qr_code_hash
+        r.reservation_id
     FROM reservations r
-    JOIN event_time_slots t ON r.time_slot_id = t.id
-    JOIN events e ON t.event_id = e.id
-    WHERE r.user_id = ? AND r.status = 'reserved'
+    JOIN time_slots t ON r.slot_id = t.slot_id
+    JOIN events e ON t.event_id = e.event_id
+    WHERE r.claimer_id = ? AND r.status = 'reserved'
     ORDER BY t.start_time ASC
 ");
 $stmt->execute([$user_id]);
@@ -25,10 +24,9 @@ $response = array_map(function ($claim) {
     return [
         'title' => $claim['title'],
         'location' => $claim['location'],
-        'image_url' => $claim['image_url'] ? '/claim/assets/pictures/' . $claim['image_url'] : null,
         'formatted_date' => date('M j, Y', strtotime($claim['start_time'])),
         'formatted_time' => date('g:i A', strtotime($claim['start_time'])),
-        'qr_code_hash' => $claim['qr_code_hash'],
+        'reservation_id' => $claim['reservation_id'],
     ];
 }, $claims);
 

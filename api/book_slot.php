@@ -15,35 +15,33 @@ try {
     $pdo->beginTransaction();
     
     // Lock slot for validation
-    $stmt = $pdo->prepare("SELECT event_id, current_reservations, max_capacity FROM event_time_slots WHERE id = ? FOR UPDATE");
+    $stmt = $pdo->prepare("SELECT event_id, current_reservations, capacity FROM time_slots WHERE slot_id = ? FOR UPDATE");
     $stmt->execute([$slot_id]);
     $slot = $stmt->fetch();
 
-    if (!$slot || $slot['current_reservations'] >= $slot['max_capacity']) {
+    if (!$slot || $slot['current_reservations'] >= $slot['capacity']) {
         throw new Exception("Slot is full or invalid.");
     }
     
-    // Get the inventory ID for this event
-    $invStmt = $pdo->prepare("SELECT id FROM inventory WHERE event_id = ? LIMIT 1");
-    $invStmt->execute([$slot['event_id']]);
-    $inventory_id = $invStmt->fetchColumn();
+    // Get the item for this event
+    $itemStmt = $pdo->prepare("SELECT item_id FROM items WHERE event_id = ? LIMIT 1");
+    $itemStmt->execute([$slot['event_id']]);
+    $item_id = $itemStmt->fetchColumn();
 
-    if (!$inventory_id) {
-        throw new Exception("No inventory linked to this event.");
+    if (!$item_id) {
+        throw new Exception("No item linked to this event.");
     }
-
-    $qr_hash = 'AC-' . rand(100,999) . '-' . strtoupper(substr(uniqid(), -6));
     
-    // Insert with inventory_id
-    $ins = $pdo->prepare("INSERT INTO reservations (user_id, time_slot_id, inventory_id, qr_code_hash) VALUES (?, ?, ?, ?)");
-    $ins->execute([$user_id, $slot_id, $inventory_id, $qr_hash]);
+    // Insert reservation
+    $ins = $pdo->prepare("INSERT INTO reservations (claimer_id, item_id, slot_id) VALUES (?, ?, ?)");
+    $ins->execute([$user_id, $item_id, $slot_id]);
     
     // Update slot reservations count
-    $upd = $pdo->prepare("UPDATE event_time_slots SET current_reservations = current_reservations + 1 WHERE id = ?");
+    $upd = $pdo->prepare("UPDATE time_slots SET current_reservations = current_reservations + 1 WHERE slot_id = ?");
     $upd->execute([$slot_id]);
     
     $pdo->commit();
-    echo json_encode(['success' => true, 'qr_hash' => $qr_hash]);
+    echo json_encode(['success' => true, 'reservation_id' => $pdo->lastInsertId()]);
 } catch (Exception $e) {
     $pdo->rollBack();
     echo json_encode(['success' => false, 'message' => $e->getMessage()]);
